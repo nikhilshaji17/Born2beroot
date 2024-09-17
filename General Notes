@@ -1,0 +1,160 @@
+Virtual Disk Image: 
+Contains the full operating system, programs, and data of the VM. It’s a complete representation of the VM’s storage.
+
+Virutal Machine:
+A Virtual Machine (VM) is like a computer inside your computer. It works by creating a virtual version of a physical computer that can run its own operating system and applications, independent of the actual hardware of the physical machine.
+
+Your personal computer would be called the host machine, and the virtual machine you are creating would be called the guest machine.
+
+We use a "virtualization software" aka hypervisor in order to create a VM. It essentially tricks the VM into thinking it has it's own CPU, RAM etc. when in reality, we are allocating it from our host machine.
+
+Uses of a VM:
+If we create a software on a windows device, and we want to see how it runs on Linux and MacOS, we can create 2 virtual machines with those operating systems installed instead of actually having to go and buy two separate devices.
+
+You can run different operating systems from 1 device.
+
+Each VM is isolated, so if 1 VM goes wrong, then the others remain intact.
+
+Differences between CentOS and Debian:
+They are both Linux distributions, but they have different backgrounds and different package management systems.
+
+CentOS is based on the Red Hat Enterprise Linux, and it focuses on stability. It is often used in enterprise environments because of this
+Debian is open-source and community driven. It is also stable, but more often used on servers and desktops.
+
+CentOS has the Red Hat Package Manager (RPM) and YUM or dnf to install and manage software.
+Debian has Advanced Package Tool (APT) and dpkg for the same as above
+
+CentOS has a longer release cycle, meaning it focuses on long-term stability and only provides updates when necessary.
+Debian has a more frequent release cycle, and they offer 3 versions:
+a. The stable version (for stability)
+b. The testing version (for newer features, but it is still stable)
+c. Unstable (for cutting-edge software and experiments)
+
+AppArmor:
+It is a security framework in Debian that allows you to control the abilities of your applications, like setting permissions on what it can do and what all it can access.
+
+Essentially, it allows you to enforce rules on your apps, so that it reads only relevant files, accesses only required system resources and so on.
+
+Differences between APT and APTitude:
+Both are tools to manage software.
+
+APT is preinstalled on Debian systems, APTitude has to be installed by the admin.
+
+APT is a command line tool, APTitude has a text-based graphical interface.
+
+APTitude is smarter when it comes to dependency management, and can offer suggestions, whereas APT is a more straightforward and less interactive tool.
+
+Verifying GUI's:
+ls /usr/bin/*session
+
+This command means:
+ls = To list everything
+
+/usr/bin = Go to the directory usr/bin. This directory contains many of our systems executable programs, including those related to GUI's
+
+/*session = This means to check for anything that ends with session, which are basically "session managers" for different GUI's.
+
+What we are doing while running this command is checking whether any session managers exist. If they do, then it implies that there is a GUI being used.
+
+dbus is a communication system that allows different programs and services on Linux to communicate with each other.
+dbus-run-session is a command that starts a new D-Bus session. 
+dbus-run-session is not a graphical session manager, like gnome-session or xfce4-session. It’s more of a utility used to manage application sessions
+
+To view the system details, we use:
+uname -v
+
+uname: This prints the system info, like the OS, kernel and the hardware
+
+-v: Prints the version
+
+The command getent means: get entries
+
+When we run the command getent group sudo, we might see and output like:
+sudo:x:27:user1,user2
+
+sudo: group name
+x: group password. x means it doesn't exist, since group passwords are rarely used
+27: Group ID
+user1, user2: This is obvious.
+
+To check the hostname:
+hostname
+NOTE: The hostname is the unique name of the computer on the network.
+
+To change the hostname:
+sudo vi /etc/hostname
+(And change the hostname there. This is a system file that contains the current hostname of your machine.)
+sudo vi /etc/hosts
+(Change the hostname there too. This file maps hostnames to IP addresses, and you update it to reflect the new hostname so that the system can resolve it correctly.)
+Without updating /etc/hosts, your system might still reference the old hostname when trying to resolve local connections (for services, scripts, etc.), which can lead to networking issues, especially on the local machine.
+sudo reboot
+(Reboot the machine)
+
+To view partitions:
+lsblk (List block devices)
+It displays information about all the block storage devices on your system, such as hard drives, SSDs, USB drives, and their partitions.
+
+NAME: Device or partition name.
+MAJ: Kernel identifiers (major
+numbers).
+RM: Indicates if the device is removable.
+SIZE: Size of the device or partition.
+RO: Read-only status.
+TYPE: Device type (disk or partition).
+MOUNTPOINT: Where the partition is mounted in the file system.
+
+swap space is just some extra memory that we allocate while partitioning in the hard drive, that holds certain files and programs if in case the RAM gets too full. 
+This allows you to keep working without having to focus on stopping your other programs.
+
+Logical Volume Managers:
+In simple terms, Logical Volume Manager (LVM) is a tool in Linux that makes it easier to manage disk space by allowing you to combine, resize, and move storage across different hard drives dynamically.
+
+One of the main advantages of LVM is that you can resize logical volumes easily. If you run out of space in a logical volume, you can add more space to it from the volume group without rebooting or losing data.
+You can also shrink or move volumes to a different physical drive.
+
+Why Is LVM Useful?
+Flexibility: You can add more drives to your system and extend your volume group, making more space available to your logical volumes without having to re-partition or format the drives.
+Resizing: If one part of your system (like the home directory) needs more space, you can easily grow its logical volume.
+Snapshots: LVM allows you to take snapshots, which are like temporary backups of the state of a logical volume, useful for backups and testing.
+
+Sudo:
+Sudo stands for superuser do
+It is a command in Linux that allows you to run other commands with admin privileges.
+
+When you run a command with sudo, you’re telling the system, “I need to do something important that requires higher permissions”, like installing software, modifying system files, or changing important settings.
+
+It ensures that only authorized users can make changes to critical system settings, helping to avoid accidental or harmful changes.
+
+UFW:
+UFW (Uncomplicated Firewall) is a tool that helps protect your computer by controlling what data can come in or go out of your system over a network.
+
+It lets you create rules to allow or block certain types of network traffic. For example, you can allow only web traffic (like HTTP and HTTPS) but block everything else.
+
+Ports:
+A port is like a gateway on your computer that allows it to communicate with other computers over a network, such as the internet. 
+Each port is associated with a specific type of service or application, like web browsing, email, or file sharing.
+
+Different services use specific port numbers to communicate:
+Port 80: Used for HTTP (web browsing).
+Port 443: Used for HTTPS (secure web browsing).
+Port 22: Used for SSH (secure remote login to another machine).
+Port 25: Used for email (SMTP).
+
+Port 8080 is often used as an alternative to port 80, which is the default port for HTTP (web traffic).
+
+It’s commonly used for web servers and web-based applications when port 80 is already in use
+
+There is an authority called Internet Assigned Numbers Authority (IANA) that decides the purpose of a port/s.
+
+SSH:
+SSH (Secure Shell) is a tool that lets you safely connect to another computer over a network, like the internet, and control it remotely. It’s like a secure remote control for computers.
+
+It’s commonly used by system administrators and developers to manage servers or other remote computers securely.
+
+Advantages of SSH include:
+All data sent through SSH is encrypted, so even if someone is spying on the connection, they can’t read your data.
+
+Most SSH connections are done through the command line, meaning you type in commands to control the remote computer.
+
+CRON:
+Cron is a tool in Unix-based systems (like Linux) that allows you to schedule and automate tasks to run at specific times or intervals. 

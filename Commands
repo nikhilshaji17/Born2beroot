@@ -1,0 +1,108 @@
+To check AppArmor status:
+sudo aa-status
+
+To enable AppArmor on boot:
+sudo systemctl enable apparmor
+sudo systemctl start apparmor
+
+To verify if there is no graphical interface:
+ls /usr/bin/*session
+
+(WE SHOULD GET:)
+/usr/bin/dbus-run-session
+
+To verify that UFW is active:
+sudo ufw status
+(OR)
+sudo service ufw status
+
+To check that the SSH service is in use:
+sudo service ssh status
+
+To check the OS being used:
+uname -v
+
+To check if a user is in a group:
+getent group group_name
+eg: getent group user42
+eg2: getent group sudo
+
+To create a new user:
+sudo adduser user_name
+eg: sudo adduser evaluator
+
+To create a new group:
+sudo addgroup group_name
+eg: sudo addgroup evaluating
+
+To add the new user to the new group:
+sudo adduser user_name group_name
+eg: sudo adduser evaluator evaluating
+
+To verify:
+getent group evaluating
+
+To change the hostname:
+sudo vi /etc/hostname
+(THEN)
+sudo vi /etc/hosts
+(AND FINALLY)
+sudo reboot
+(Reboot the machine)
+
+To view partitions:
+lsblk
+
+To view which sudo is installed:
+which sudo
+(OR)
+dpkg -s sudo
+
+To view the rules imposed for sudo:
+vi /etc/sudoers.d/sudo_config
+
+To show that /var/log/sudo exists and is tracking the sudo commands:
+cd /var/log/sudo
+cat sudo_config
+
+To check is ufw is installed and is active:
+dpkg -s ufw
+sudo service ufw status
+sudo ufw status numbered
+
+To allow traffic through port 8080:
+sudo ufw allow 8080
+sudo ufw status numbered
+
+To delete the rule we just created:
+sudo ufw status numbered
+sudo ufw delete num_rule
+
+To allow traffic through a specific port:
+sudo ufw allow port_number
+
+To deny traffic through a specific port:
+sudo ufw deny port_number
+
+To check ssh version:
+which ssh
+
+To check if ssh is active:
+sudo service ssh status
+
+To connect using ssh:
+(First create a newuser)
+ssh newuser@localhost -p 4242 (From your terminal)
+
+To modify the crontab file:
+sudo crontab -u root -e
+(AND CHANGE 10 to 1)
+
+To stop crontab:
+sudo /etc/init.d/cron stop
+
+To start crontab:
+sudo /etc/init.d/cron start
+
+To view cron status:
+sudo service cron status
